@@ -19,6 +19,9 @@ public class LineupPane extends VBox {
     // Press Enter on team name TextField to quickly advance
     private static final boolean QUICK = true;
 
+    // Have default names set in TextFields
+    private static final boolean NAMES = true;
+
     private static final int NUM_PLAYERS = 9;
     private static final Font TITLE_FONT = Font.font("Times New Roman", FontWeight.BOLD, 28);
     private static final Font HEADER_FONT = Font.font("Times New Roman", FontWeight.NORMAL, 24);
@@ -84,6 +87,19 @@ public class LineupPane extends VBox {
             positionFields[i].setPrefWidth(50);
         }
 
+        if (NAMES) {
+            teamField.setText("Boston Red Sox");
+            setPlayerInfo(0, "Betts", "9");
+            setPlayerInfo(1, "Benintendi", "7");
+            setPlayerInfo(2, "Moreland", "3");
+            setPlayerInfo(3, "Martinez", "DH");
+            setPlayerInfo(4, "Bogaerts", "6");
+            setPlayerInfo(5, "Kinsler", "4");
+            setPlayerInfo(6, "Nunez", "5");
+            setPlayerInfo(7, "Leon", "2");
+            setPlayerInfo(8, "Bradley Jr.", "8");
+        }
+
         GridPane lineupGrid = new GridPane();
         lineupGrid.setAlignment(Pos.CENTER);
         lineupGrid.setHgap(10);
@@ -105,6 +121,12 @@ public class LineupPane extends VBox {
             submit();
             stage.close();
         });
+        submitButton.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                submit();
+                stage.close();
+            }
+        });
         submitButton.setPrefWidth(320);
 
         StackPane buttonPane = new StackPane();
@@ -118,6 +140,11 @@ public class LineupPane extends VBox {
         stage.setTitle("Set Your Lineup");
         stage.show();
 
+    }
+
+    private void setPlayerInfo(int i, String name, String pos) {
+        nameFields[i].setText(name);
+        positionFields[i].setText(pos);
     }
 
     private void submit() {
